@@ -101,7 +101,14 @@ and potential impact.
 
 ### Documentation
 
-![Identified vulnerabilities mapped from enumeration results](Scanning/vulnerability_table.md)
+| Port | Service | Version | Risk | Reason |
+|------|--------|---------|------|--------|
+| 21 | FTP | vsftpd 2.3.4 | High | Known backdoor vulnerability |
+| 23 | Telnet | Linux telnetd | High | Cleartext authentication |
+| 139/445 | SMB | Samba 3.x | Critical | Multiple RCE vulnerabilities |
+| 1524 | bindshell | Metasploitable root shell | Critical | Unauthenticated root access |
+| 8180 | HTTP | Apache Tomcat | High | Weak credentials / RCE |
+
 
 
 ## Phase 3: Exploitation
