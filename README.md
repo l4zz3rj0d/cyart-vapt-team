@@ -254,12 +254,13 @@ Week 2/scanning/
 ### Repository Structure
 
 Week 2/
-├──Theory
+├── Theory/
 ├── Scanning/
 ├── Exploitation/
 ├── Post-Exploitation/
 ├── Capstone/
 └── README.md
+
 
 ### Key Takeaways
 Manual enumeration is essential for accurate vulnerability discovery
