@@ -1,4 +1,4 @@
-# Vulnerability Assessment and Penetration Testing (VAPT) – Week 2
+# Vulnerability Assessment and Penetration Testing (VAPT) 
 
 ## Overview
 This repository documents a structured Vulnerability Assessment and Penetration
@@ -142,36 +142,35 @@ Week 2/Exploitation/
 ### Activities
 Verification of privilege level
 ```
-
+priv check needed
 ```
-Confirmation of full system compromise
 
-Collection of evidence to validate impact
-
-Outcome
+### Outcome
 Post-exploitation confirmed complete system control, validating the severity of
 the identified vulnerabilities.
 
-Evidence Location
+### Evidence Location
 
-swift
-Copy code
 Week 2/Post-Exploitation/
-Phase 5: Web Application VAPT (DVWA)
-Application Tested: Damn Vulnerable Web Application (DVWA)
 
-Vulnerability Identified
+## Phase 5: Web Application VAPT (DVWA)
+### Application Tested: Damn Vulnerable Web Application (DVWA)
+
+### Vulnerability Identified
 SQL Injection due to improper input validation
 
-Exploitation Method
+### Exploitation Method
 Authenticated SQL Injection testing was performed using automated tooling.
 
-bash
-Copy code
+```
 sqlmap -u "http://<target-ip>/vulnerabilities/sqli/?id=1&Submit=Submit#" \
 --cookie="security=low; PHPSESSID=<session-id>" \
 -D dvwa -T users --dump
-Results
+```
+### Results
+```
+result here
+```
 Backend DBMS identified as MySQL
 
 Databases and tables enumerated successfully
@@ -188,41 +187,26 @@ Time-based
 
 UNION-based
 
-Evidence Location
+### Evidence Location
 
-swift
-Copy code
 Week 2/Capstone/
-Phase 6: Automated Vulnerability Scanning (OpenVAS)
+
+## Phase 6: Automated Vulnerability Scanning (OpenVAS)
 Tool: OpenVAS / Greenbone Vulnerability Manager
+```
+needs to be configured
+```
+Week 2/scanning/
+### Repository Structure
 
-Status
-Scanner environment configured
-
-Vulnerability feeds synchronized
-
-Automated scan execution pending due to tool stabilization issues in the lab
-environment
-
-Automated scan results will be added once execution is completed. Manual testing
-and exploitation were prioritized to ensure continuity of the VAPT workflow.
-
-Reserved Directory
-
-swift
-Copy code
-Week 2/OpenVAS/
-Repository Structure
-nix
-Copy code
 Week 2/
+├──Theory
 ├── Scanning/
 ├── Exploitation/
 ├── Post-Exploitation/
 ├── Capstone/
-├── OpenVAS/
 └── README.md
-Key Takeaways
+### Key Takeaways
 Manual enumeration is essential for accurate vulnerability discovery
 
 Exploitation validates real-world impact beyond automated scan results
@@ -231,6 +215,4 @@ Authenticated web application testing exposes critical vulnerabilities
 
 Automated tools support, but do not replace, structured methodology
 
-Disclaimer
-All activities documented in this repository were performed in authorized and
-controlled lab environments for educational purposes only.
+
