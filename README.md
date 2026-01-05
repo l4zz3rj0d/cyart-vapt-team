@@ -232,7 +232,6 @@ Error-based
 Time-based
 UNION-based
 
-### Evidence Location
 
 
 ## Phase 6: Automated Vulnerability Scanning (OpenVAS)
