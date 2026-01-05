@@ -254,12 +254,12 @@ Week 2/scanning/
 
 ## Repository Structure
 
-Week 2/
-├── Theory/
-├── Scanning/
-├── Exploitation/
-├── Post-Exploitation/
-├── Capstone/
+Week 2
+├── Theory
+├── Scanning
+├── Exploitation
+├── Post-Exploitation
+├── Capstone
 └── README.md
 
 
