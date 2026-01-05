@@ -81,9 +81,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 Multiple network services were identified running outdated or insecure versions,
 indicating a broad attack surface for further assessment.
 
-### Evidence Location
-
-Week 2/Scanning/
 
 ## Phase 2: Vulnerability Identification
 Based on enumeration results, identified services were analyzed for known
@@ -134,9 +131,6 @@ The target system was successfully compromised, and root-level access was
 achieved due to critical security misconfigurations. This confirms a high to
 critical severity impact.
 
-### Evidence Location
-
-Week 2/Exploitation/
 
 ## Phase 4: Post-Exploitation
 ### Activities
@@ -149,9 +143,6 @@ priv check needed
 Post-exploitation confirmed complete system control, validating the severity of
 the identified vulnerabilities.
 
-### Evidence Location
-
-Week 2/Post-Exploitation/
 
 ## Phase 5: Web Application VAPT (DVWA)
 ### Application Tested: Damn Vulnerable Web Application (DVWA)
@@ -243,24 +234,12 @@ UNION-based
 
 ### Evidence Location
 
-Week 2/Capstone/
 
 ## Phase 6: Automated Vulnerability Scanning (OpenVAS)
 Tool: OpenVAS / Greenbone Vulnerability Manager
 ```
 needs to be configured
 ```
-Week 2/scanning/
-
-## Repository Structure
-
-Week 2
-├── Theory
-├── Scanning
-├── Exploitation
-├── Post-Exploitation
-├── Capstone
-└── README.md
 
 
 ### Key Takeaways
