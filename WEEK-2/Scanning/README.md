@@ -6,37 +6,50 @@ potential security weaknesses on the target system as part of the
 vulnerability assessment process.
 
 ## Target Information
-- Target Machine: Metasploitable2
-- Target IP: 192.168.56.5
-- Environment: Isolated lab network
+- Target Machine: Metasploitable2  
+- Target IP: 192.168.56.5  
+- Environment: Isolated lab network  
 
 ## Tools Used
-- Nmap (network and service enumeration)
-- OpenVAS (vulnerability validation and risk scoring)
+- Nmap – Network and service enumeration  
+- OWASP ZAP – Web application vulnerability assessment  
+- Nikto – Web server vulnerability scanning  
 
 ## Scanning Methodology
 An initial network scan was performed using Nmap to enumerate all open ports
 and identify running services. Service version detection was enabled to
-identify potentially vulnerable software. Based on the Nmap results, a
-targeted scope was prepared for OpenVAS to reduce false positives and improve
-scan efficiency.
+identify potentially vulnerable software and legacy services.
+
+Based on the discovered web services, OWASP ZAP was used to perform an
+automated web application scan to identify security misconfigurations such as
+missing security headers, weak session handling, and information disclosure.
+
+Additionally, Nikto was used to conduct a focused web server scan against the
+Apache Tomcat service to identify default configurations, exposed management
+interfaces, and insecure HTTP methods.
 
 ## Key Findings
-The Nmap scan revealed multiple insecure and legacy services exposed on the
-target system, including:
+The scanning phase revealed multiple insecure and legacy services exposed on
+the target system, including:
 
-- FTP service running vsftpd 2.3.4
-- Telnet service allowing cleartext communication
-- SMB services exposed on ports 139 and 445
-- Web services running on HTTP and Apache Tomcat
-- Multiple database services accessible remotely
+- FTP service running vsftpd 2.3.4  
+- Telnet service allowing cleartext communication  
+- SMB services exposed on ports 139 and 445  
+- Web services running on Apache HTTP and Apache Tomcat  
+- Exposed Tomcat management interfaces  
+- Multiple database services accessible remotely  
 
-These services significantly increase the attack surface of the target system
-and indicate a high-risk security posture.
+Web application scanning further identified missing security headers,
+information disclosure issues, and weak security hardening, confirming a
+high-risk security posture.
 
 ## Evidence
-- Nmap scan screenshots showing open ports and service versions
-- Nmap scan result
+- Nmap scan screenshots showing open ports and service versions  
+- OWASP ZAP scan screenshots highlighting web application misconfigurations  
+- Nikto scan output identifying default Tomcat components and exposed
+  interfaces  
+
+### Nmap Scan Result
 ```
 # Nmap 7.98 scan initiated Mon Jan  5 04:25:28 2026 as: /usr/lib/nmap/nmap --privileged -sV -oN nmap_scan.txt 192.168.56.5
 Nmap scan report for 192.168.56.5
@@ -70,10 +83,11 @@ Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: U
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 # Nmap done at Mon Jan  5 04:25:44 2026 -- 1 IP address (1 host up) scanned in 16.46 seconds
+
 ```
-- Vulnerability table summarizing identified risks
 
 ## Outcome
-The scanning phase successfully identified critical services suitable for
-further exploitation and provided the foundation for the exploitation and
+The vulnerability scanning phase successfully identified critical network and
+web application weaknesses. These findings directly supported the exploitation
+strategy and provided a clear attack path for the exploitation and
 post-exploitation phases of the VAPT workflow.
