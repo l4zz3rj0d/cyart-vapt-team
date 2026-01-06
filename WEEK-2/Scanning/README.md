@@ -85,6 +85,41 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Mon Jan  5 04:25:44 2026 -- 1 IP address (1 host up) scanned in 16.46 seconds
 
 ```
+### Nikto Results
+```
+nikto --url http://192.168.56.5:8180/       
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          192.168.56.5
++ Target Hostname:    192.168.56.5
++ Target Port:        8180
++ Start Time:         2026-01-06 07:11:43 (GMT-5)
+---------------------------------------------------------------------------
++ Server: Apache-Coyote/1.1
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /favicon.ico: identifies this app/server as: Apache Tomcat (possibly 5.5.26 through 8.0.15), Alfresco Community. See: https://en.wikipedia.org/wiki/Favicon
++ OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS .
++ HTTP method ('Allow' Header): 'PUT' method could allow clients to save files on the web server.
++ HTTP method ('Allow' Header): 'DELETE' may allow clients to remove files on the web server.
++ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
++ /: Appears to be a default Apache Tomcat install.
++ /tomcat-docs/index.html: Default Apache Tomcat documentation found. See: CWE-552
++ /manager/html-manager-howto.html: Tomcat documentation found. See: CWE-552
++ /manager/manager-howto.html: Tomcat documentation found. See: CWE-552
++ /webdav/index.html: WebDAV support is enabled.
++ /jsp-examples/: Apache Java Server Pages documentation. See: CWE-552
++ /servlets-examples/: Tomcat servlets examples are visible.
++ /host-manager/html: Default account found for 'Tomcat Host Manager Application' at (ID 'tomcat', PW 'tomcat'). Apache Tomcat. See: CWE-16
++ /host-manager/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /manager/status: Tomcat Server Status interface found (pass protected).
++ 8396 requests: 17 error(s) and 17 item(s) reported on remote host
++ End Time:           2026-01-06 07:18:45 (GMT-5) (422 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+```
 
 ## Outcome
 The vulnerability scanning phase successfully identified critical network and
