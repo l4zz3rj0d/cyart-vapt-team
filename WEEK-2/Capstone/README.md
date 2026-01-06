@@ -91,9 +91,6 @@ Table: users
 [07:32:28] [INFO] fetched data logged to text files under '/home/joe/.local/share/sqlmap/output/10.49.143.189'
 
 ```
-## Tools Used
-- sqlmap
-- Web Browser
 
 ## Remediation
 - Use prepared statements (parameterized queries)
