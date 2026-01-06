@@ -24,11 +24,11 @@ scanning.
 ## VAPT Workflow Summary
 
 1. Network Scanning and Enumeration  
-2. Vulnerability Identification  
-3. Exploitation  
-4. Post-Exploitation  
-5. Web Application VAPT (DVWA)  
-6. Automated Vulnerability Scanning 
+2. Vulnerability Identification
+3. Automated Vulnerability Scanning 
+4. Exploitation  
+5. Post-Exploitation  
+6. Web Application VAPT (DVWA)  
 
 ---
 
@@ -107,8 +107,58 @@ and potential impact.
 | 8180 | HTTP | Apache Tomcat | High | Weak credentials / RCE |
 
 
+## Phase 3: Automated Vulnerability Assessment
 
-## Phase 3: Exploitation
+### Tools Used
+- OWASP ZAP
+- Nikto
+
+### Summary
+Automated vulnerability assessment was performed against the exposed Apache
+Tomcat web service. OWASP ZAP was used to identify web application
+misconfigurations such as missing security headers, weak session handling, and
+information disclosure. Nikto was used to detect server-level issues including
+default Tomcat components, exposed management interfaces, and insecure HTTP
+methods.
+
+```
+nikto --url http://192.168.56.5:8180/       
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          192.168.56.5
++ Target Hostname:    192.168.56.5
++ Target Port:        8180
++ Start Time:         2026-01-06 07:11:43 (GMT-5)
+---------------------------------------------------------------------------
++ Server: Apache-Coyote/1.1
++ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
++ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /favicon.ico: identifies this app/server as: Apache Tomcat (possibly 5.5.26 through 8.0.15), Alfresco Community. See: https://en.wikipedia.org/wiki/Favicon
++ OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS .
++ HTTP method ('Allow' Header): 'PUT' method could allow clients to save files on the web server.
++ HTTP method ('Allow' Header): 'DELETE' may allow clients to remove files on the web server.
++ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
++ /: Appears to be a default Apache Tomcat install.
++ /tomcat-docs/index.html: Default Apache Tomcat documentation found. See: CWE-552
++ /manager/html-manager-howto.html: Tomcat documentation found. See: CWE-552
++ /manager/manager-howto.html: Tomcat documentation found. See: CWE-552
++ /webdav/index.html: WebDAV support is enabled.
++ /jsp-examples/: Apache Java Server Pages documentation. See: CWE-552
++ /servlets-examples/: Tomcat servlets examples are visible.
++ /host-manager/html: Default account found for 'Tomcat Host Manager Application' at (ID 'tomcat', PW 'tomcat'). Apache Tomcat. See: CWE-16
++ /host-manager/html: Tomcat Manager / Host Manager interface found (pass protected).
++ /manager/status: Tomcat Server Status interface found (pass protected).
++ 8396 requests: 17 error(s) and 17 item(s) reported on remote host
++ End Time:           2026-01-06 07:18:45 (GMT-5) (422 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+
+```
+The identified vulnerabilities confirmed poor security hardening and directly
+supported the subsequent exploitation of the Tomcat Manager interface.
+
+## Phase 4: Exploitation
 
 Tool Used: Metasploit Framework
 
@@ -244,7 +294,7 @@ The target system was successfully compromised through the Apache Tomcat Manager
 
 
 
-## Phase 4: Post-Exploitation
+## Phase 5: Post-Exploitation
 ### Activities
 Verification of privilege level
 ```
@@ -378,7 +428,7 @@ Post-exploitation confirmed complete system control, validating the severity of
 the identified vulnerabilities.
 
 
-## Phase 5: Web Application VAPT (DVWA)
+## Phase 6: Web Application VAPT (DVWA)
 ### Application Tested: Damn Vulnerable Web Application (DVWA)
 
 ### Vulnerability Identified
@@ -466,58 +516,6 @@ Error-based
 Time-based
 UNION-based
 
-
-
-## Phase 6: Automated Vulnerability Assessment
-
-### Tools Used
-- OWASP ZAP
-- Nikto
-
-### Summary
-Automated vulnerability assessment was performed against the exposed Apache
-Tomcat web service. OWASP ZAP was used to identify web application
-misconfigurations such as missing security headers, weak session handling, and
-information disclosure. Nikto was used to detect server-level issues including
-default Tomcat components, exposed management interfaces, and insecure HTTP
-methods.
-
-```
-nikto --url http://192.168.56.5:8180/       
-- Nikto v2.5.0
----------------------------------------------------------------------------
-+ Target IP:          192.168.56.5
-+ Target Hostname:    192.168.56.5
-+ Target Port:        8180
-+ Start Time:         2026-01-06 07:11:43 (GMT-5)
----------------------------------------------------------------------------
-+ Server: Apache-Coyote/1.1
-+ /: The anti-clickjacking X-Frame-Options header is not present. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-+ /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
-+ No CGI Directories found (use '-C all' to force check all possible dirs)
-+ /favicon.ico: identifies this app/server as: Apache Tomcat (possibly 5.5.26 through 8.0.15), Alfresco Community. See: https://en.wikipedia.org/wiki/Favicon
-+ OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS .
-+ HTTP method ('Allow' Header): 'PUT' method could allow clients to save files on the web server.
-+ HTTP method ('Allow' Header): 'DELETE' may allow clients to remove files on the web server.
-+ /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
-+ /: Appears to be a default Apache Tomcat install.
-+ /tomcat-docs/index.html: Default Apache Tomcat documentation found. See: CWE-552
-+ /manager/html-manager-howto.html: Tomcat documentation found. See: CWE-552
-+ /manager/manager-howto.html: Tomcat documentation found. See: CWE-552
-+ /webdav/index.html: WebDAV support is enabled.
-+ /jsp-examples/: Apache Java Server Pages documentation. See: CWE-552
-+ /servlets-examples/: Tomcat servlets examples are visible.
-+ /host-manager/html: Default account found for 'Tomcat Host Manager Application' at (ID 'tomcat', PW 'tomcat'). Apache Tomcat. See: CWE-16
-+ /host-manager/html: Tomcat Manager / Host Manager interface found (pass protected).
-+ /manager/status: Tomcat Server Status interface found (pass protected).
-+ 8396 requests: 17 error(s) and 17 item(s) reported on remote host
-+ End Time:           2026-01-06 07:18:45 (GMT-5) (422 seconds)
----------------------------------------------------------------------------
-+ 1 host(s) tested
-
-```
-The identified vulnerabilities confirmed poor security hardening and directly
-supported the subsequent exploitation of the Tomcat Manager interface.
 
 ### Key Takeaways
 Manual enumeration is essential for accurate vulnerability discovery
