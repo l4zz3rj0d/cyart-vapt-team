@@ -112,6 +112,8 @@ and potential impact.
 
 Tool Used: Metasploit Framework
 
+The exploitation phase began with the identification of exposed Apache Tomcat Manager services during enumeration. The auxiliary/scanner/http/tomcat_mgr_login module was used to test default and weak credentials against the Tomcat Manager interface, resulting in the discovery of valid authentication credentials. Using the identified credentials, the exploit/multi/http/tomcat_mgr_upload module was leveraged to upload a malicious WAR file via the Tomcat Manager application. Successful deployment and execution of the payload provided remote code execution on the target system, resulting in an initial low-privileged shell.
+
 ### Activities
 ```
 
@@ -238,9 +240,8 @@ meterpreter >
 
 ```
 ### Result
-The target system was successfully compromised, and root-level access was
-achieved due to critical security misconfigurations. This confirms a high to
-critical severity impact.
+The target system was successfully compromised through the Apache Tomcat Manager interface, resulting in remote code execution and the establishment of an initial low-privileged shell. This confirms a high-severity vulnerability due to insecure credential management and improper access control on the Tomcat Manager service.
+
 
 
 ## Phase 4: Post-Exploitation
