@@ -51,6 +51,6 @@ credential validation and exploitation.
 ## Outcome
 The reconnaissance phase successfully identified Apache Tomcat Manager as the
 primary attack vector. Information gathered during this phase directly guided
-the exploitation strategy, which focused on credential discovery using the auxillary for credential identification 
+the exploitation strategy, which focused on credential discovery using the auxillary for credential identification.
 
 
