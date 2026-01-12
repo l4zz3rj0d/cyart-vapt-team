@@ -28,8 +28,7 @@ This repository contains weekly submissions completed as part of the CYART Vulne
 
 ## Weekly submissions:
 
-- Week 2 – Web & Network Enumeration
-
-- Week 3 – SSTI Exploitation and RCE
-
+- Week 2 – Enumeration and exploitation (Apache Tomcat RCE via Metasploit)
+- Week 3 – SSTI exploitation leading to Remote Code Execution (CVE-2024-22722)
+- 
 More tasks will be added as the internship progresses.
