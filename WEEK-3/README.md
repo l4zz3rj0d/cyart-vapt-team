@@ -164,19 +164,6 @@ Access to sensitive system files was demonstrated by reading:
 
 Demonstrates successful system-level access through the obtained shell. This confirmed the real-world impact of the vulnerability without exceeding ethical boundaries.
 
-## Visual Attack Flow
-
-A simplified visual representation of the exploitation chain is provided:
-
-![project flow](Evidence/ssti_attack_flow.png)
-### Flow:
-
-Attacker (Kali)
-→ HTTP interaction
-→ SSTI triggered
-→ Command execution
-→ Reverse shell
-→ Shell access as www-data
 
 ## Outcome
 
