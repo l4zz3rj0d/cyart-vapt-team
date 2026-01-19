@@ -27,7 +27,7 @@ were enumerated using the following command:
 ```
 find / -perm -4000 2>/dev/null
 ```
-
+![project suid](Evidence/suid.png)
 
 - `-perm -4000` filters for files with the SUID permission enabled  
 - `2>/dev/null` suppresses permission denied errors  
@@ -36,8 +36,6 @@ The output revealed multiple binaries with SUID permissions, including:
 ```
 /usr/bin/find
 ```
-
-
 This binary was identified as a strong candidate for exploitation.
 
 ---
@@ -47,7 +45,7 @@ This binary was identified as a strong candidate for exploitation.
 After identifying the SUID-enabled `find` binary, the GTFOBins resource was
 consulted to confirm whether this binary could be abused for privilege escalation.
 
-
+![project gt](Evidence/gtfo.png)
 
 GTFOBins confirms that `find` with SUID permissions can be abused to spawn a
 privileged shell.
@@ -59,9 +57,6 @@ sudo install -m =xs $(which find) .
 ./find . -exec /bin/sh -p ; -quit
 ```
 
-
----
-
 ## Proof of Privilege Escalation
 
 After execution, the shell prompt changed to root (#), confirming successful
@@ -69,7 +64,7 @@ privilege escalation.
 
 Verification:
 
-
+![project root](Evidence/root_shell.png)
 
 With root privileges, access to the `/root` directory was confirmed.
 
