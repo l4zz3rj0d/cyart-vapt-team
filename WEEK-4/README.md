@@ -25,7 +25,7 @@ and authenticated remote access.
 4. Exploitation (Responder + NTLM capture)  
 5. Credential Cracking  
 6. Authenticated Remote Access (Evil-WinRM)  
-7. Web Application VAPT (DVWA) *(to be added)*  
+7. Mobile Application Testing (DIVA)
 8. API Security Testing (crAPI) *(to be added)*  
 ---
 
@@ -224,3 +224,144 @@ evil-winrm -u Administrator -p badminton -i 10.129.15.41
 ![project vali](Capstone/Evidence/Permission_validation.png)
 
 This confirms full system compromise.
+
+# Mobile Application Penetration Testing
+
+After completing the system-level exploitation, network assessment, and privilege
+escalation phases, the engagement continued with **mobile application security
+testing**.
+
+A security assessment was conducted against the **Damn Insecure and Vulnerable App
+(DIVA)** in a controlled lab environment to demonstrate practical mobile
+pentesting techniques using both **static and dynamic analysis**, aligned with
+the **OWASP Mobile Top 10**.
+
+---
+
+## Scope and Environment
+- Target Application: Damn Insecure and Vulnerable App (DIVA)  
+- Platform: Android Emulator (Genymotion)  
+- Attacker Machine: Kali Linux  
+
+### Testing Methodology
+- Static analysis (smali code inspection)  
+- Dynamic analysis (runtime behavior and logging inspection)  
+
+---
+
+## Tools Used
+- adb (Android Debug Bridge)  
+- Android Emulator (Genymotion)  
+- Linux Terminal (Kali)  
+
+---
+
+## Vulnerability 1: Insecure Logging
+
+### Step 1: Identifying abnormal behavior
+While testing the checkout feature, submitting a test credit card resulted in the
+error message:
+```
+An error occured. Please try again later
+```
+
+![Checkout screen](Mobile-App-Pentesting/Evidence/credit-card.png)
+
+---
+
+### Step 2: Identifying the vulnerable activity
+To understand which component handled this feature, the `AndroidManifest.xml`
+file was reviewed.
+
+The following activity was identified:
+
+```
+<activity android:label="@string/d1" android:name="jakhar.aseem.diva.LogActivity"/>
+```
+![project logging](Mobile-App-Pentesteing/Evidence/logging-activity.png)
+
+Step 3: Static analysis of smali logic
+
+The corresponding smali file for the activity was reviewed to understand the
+application behavior.
+
+The following logging call was identified:
+```
+invoke-static {v2, v3}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+
+.line 26
+const-string v2, "An error occured. Please try again later"
+
+```
+
+![project smali](Mobile-App-Pentesteing/Evidence/logging-smali.png)
+
+Step 3: Dynamic validation using Logcat
+
+To validate the impact, runtime logs were monitored while performing checkout:
+```
+adb logcat | grep "credit"  
+01-20 13:49:26.700  2512  2512 E diva-log: Error while processing transaction with credit card: 
+01-20 13:49:27.035  2512  2512 E diva-log: Error while processing transaction with credit card: 
+01-20 13:50:28.184  2512  2512 E diva-log: Error while processing transaction with credit card: 1234123412341234
+01-20 14:15:00.573  2512  2512 E diva-log: Error while processing transaction with credit card: 1234123412341234
+
+```
+### Impact
+
+Sensitive financial data (credit card numbers) is written to Android logs.
+This data could be accessed by:
+
+- Malicious applications on the device
+
+- Anyone with debugging access
+
+- Attackers with physical access
+
+This represents an Insecure Logging vulnerability (OWASP Mobile Top 10 – M2)
+
+## Vulnerability 2: Hardcoded Secret (Smali Analysis)
+
+### Step 1: Reviewing smali code
+The application’s smali files were reviewed directly to understand the underlying logic.
+
+Inside the relevant smali file, the following code was identified:
+
+```
+const-string v2, "vendorsecretkey"
+
+invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+move-result v1
+
+if-eqz v1, :cond_0
+
+.line 20
+const-string v1, "Access granted! See you on the other side :)"
+```
+This clearly shows that the secret value "vendorsecretkey" is hardcoded directly into the application logic.
+
+![project key](Mobile-App-Pentesteing/Evidence/Sensitive_key.png)
+
+Step 2: Exploiting the hardcoded secret
+
+The extracted value was then entered into the application input field.
+
+The application responded with:
+```
+Access granted! See you on the other side :)
+
+```
+
+![project key](Mobile-App-Pentesteing/Evidence/correct_key.png)
+
+### Impact
+
+Because the secret is stored directly inside the application code, any attacker can:
+
+Decompile or inspect smali files
+
+Extract sensitive logic or secrets
+
+Bypass security controls without authentication
+
+This demonstrates a Hardcoded Secret vulnerability, caused by insecure client-side trust and improper secret handling.
