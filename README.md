@@ -16,7 +16,7 @@ This repository contains weekly submissions completed as part of the CYART Vulne
 
 ### The work demonstrates practical skills in:
 
-- Web application security testing
+-Web, API, and mobile application security testing
 
 - Vulnerability discovery
 
