@@ -278,7 +278,7 @@ The following activity was identified:
 ```
 <activity android:label="@string/d1" android:name="jakhar.aseem.diva.LogActivity"/>
 ```
-![project logging](Mobile-App-Pentesteing/Evidence/logging-activity.png)
+![project logging](Mobile-App-Pentesting/Evidence/logging-activity.png)
 
 Step 3: Static analysis of smali logic
 
@@ -294,7 +294,7 @@ const-string v2, "An error occured. Please try again later"
 
 ```
 
-![project smali](Mobile-App-Pentesteing/Evidence/logging-smali.png)
+![project smali](Mobile-App-Pentesting/Evidence/logging-smali.png)
 
 Step 3: Dynamic validation using Logcat
 
@@ -340,7 +340,7 @@ const-string v1, "Access granted! See you on the other side :)"
 ```
 This clearly shows that the secret value "vendorsecretkey" is hardcoded directly into the application logic.
 
-![project key](Mobile-App-Pentesteing/Evidence/Sensitive_key.png)
+![project key](Mobile-App-Pentesting/Evidence/Sensitive_key.png)
 
 Step 2: Exploiting the hardcoded secret
 
@@ -352,7 +352,7 @@ Access granted! See you on the other side :)
 
 ```
 
-![project key](Mobile-App-Pentesteing/Evidence/correct_key.png)
+![project key](Mobile-App-Pentesting/Evidence/correct_key.png)
 
 ### Impact
 
