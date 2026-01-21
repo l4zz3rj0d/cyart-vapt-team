@@ -358,11 +358,11 @@ Access granted! See you on the other side :)
 
 Because the secret is stored directly inside the application code, any attacker can:
 
-Decompile or inspect smali files
+- Decompile or inspect smali files
 
-Extract sensitive logic or secrets
+- Extract sensitive logic or secrets
 
-Bypass security controls without authentication
+- Bypass security controls without authentication
 
 This demonstrates a Hardcoded Secret vulnerability, caused by insecure client-side trust and improper secret handling.
 
