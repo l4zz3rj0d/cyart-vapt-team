@@ -31,6 +31,13 @@ The assessment simulates a real-world attack chain, including reconnaissance, ex
 7. Mobile Application Testing (DIVA)
 8. API Security Testing (crAPI)  
 ---
+## Advanced Exploitation Summary
+
+Exploit ID | Description        | Target        | Status  | Payload
+--------- |--------------------|---------------|---------|-----------
+007       | LFI → NTLM Capture → RCE Chain | unika.htb (10.129.15.41) | Success | Reverse Shell (Evil-WinRM)
+
+---
 
 ## Phase 1: Network Scanning and Enumeration
 
@@ -409,6 +416,15 @@ API)** to demonstrate practical API pentesting techniques aligned with the
 - Browser  
 - Kali Linux  
 - Docker (crAPI environment)  
+
+---
+## API Security Testing Summary
+
+Test ID | Vulnerability                 | Severity | Target Endpoint
+------- |-------------------------------|----------|-------------------------------
+008     | BOLA / IDOR                   | Critical | /api/posts, /api/vehicle/*
+009     | Excessive Data Exposure       | High     | /api/posts
+010     | OTP Bypass → Account Takeover | Critical | /api/auth/forgot-password
 
 ---
 
