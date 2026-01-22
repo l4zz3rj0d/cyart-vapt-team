@@ -259,6 +259,15 @@ the **OWASP Mobile Top 10**.
 
 ---
 
+## Mobile Application Testing Summary
+
+Test ID | Vulnerability        | Severity | Target App
+------- |----------------------|----------|-------------------------------
+016     | Insecure Logging     | High     | Damn Insecure and Vulnerable App (DIVA)
+017     | Hardcoded Secret     | Medium   | Damn Insecure and Vulnerable App (DIVA)
+
+---
+
 ## Vulnerability 1: Insecure Logging
 
 ### Step 1: Identifying abnormal behavior
