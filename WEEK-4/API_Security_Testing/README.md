@@ -28,6 +28,15 @@ validation aligned with the **OWASP API Top 10**.
 - Docker (crAPI environment)
 
 ---
+## API Security Testing Summary
+
+Test ID | Vulnerability                 | Severity | Target Endpoint
+------- |-------------------------------|----------|-------------------------------
+008     | BOLA / IDOR                   | Critical | /api/posts, /api/vehicle/*
+009     | Excessive Data Exposure       | High     | /api/posts
+010     | OTP Bypass → Account Takeover | Critical | /api/auth/forgot-password
+
+---
 
 ## Initial Interaction
 
