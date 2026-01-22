@@ -1,14 +1,17 @@
 # Vulnerability Assessment and Penetration Testing (VAPT)
 
 ## Overview
-This repository documents a structured Vulnerability Assessment and Penetration
-Testing (VAPT) workflow carried out in an authorized and controlled lab
-environment. The objective is to demonstrate practical security testing skills,
-methodology, and proper technical documentation.
 
-The assessment simulates a real-world attack chain, including reconnaissance,
-exploitation of web vulnerabilities, credential interception, password cracking,
-and authenticated remote access.
+This repository documents a structured Vulnerability Assessment and Penetration Testing (VAPT) workflow carried out in an authorized and controlled lab environment. The objective is to demonstrate practical security testing skills, methodology, and proper technical documentation.
+
+The assessment simulates a real-world attack chain, including reconnaissance, exploitation of web vulnerabilities, credential interception, password cracking, and authenticated remote access.
+
+> **Note on Network Exploitation:**  
+> The network attack component for this week (including Responder-based NTLM
+> capture, hash cracking, and gaining initial access via Evil-WinRM) is
+> documented as part of the **Capstone workflow**, as it represents a realistic
+> end-to-end compromise path rather than an isolated technique.
+
 
 ---
 
