@@ -45,7 +45,7 @@ as instructed and is included here for repository consistency and verification.
 
 ## Repository Contents
 
-- `Report.pdf` – Complete Week 1 VAPT report including:
+- `VAPT_REPORT01.pdf` – Complete Week 1 VAPT report including:
   - Executive summary  
   - Technical findings  
   - Vulnerability scan results  
