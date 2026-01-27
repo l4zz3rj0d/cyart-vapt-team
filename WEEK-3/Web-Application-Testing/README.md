@@ -22,7 +22,7 @@ A user-controlled input field was discovered:
 Client-side behavior was inspected and it was observed that user input was being
 directly processed and sent to backend logic.
 
-![project d](WEEK-3/Evidence/unvalidated_user_input_ajax.png)
+![project d](/WEEK-3/Evidence/unvalidated_user_input_ajax.png)
 
 This suggested the presence of a potential server-side injection surface.
 
@@ -34,7 +34,7 @@ The application version was identified as:
 
 Form Tools 3.1.1
 
-![project d](WEEK-3/Evidence/version_identification.png)
+![project d](/WEEK-3/Evidence/version_identification.png)
 
 Public vulnerability research revealed the presence of a known vulnerability:
 
@@ -43,7 +43,7 @@ Public vulnerability research revealed the presence of a known vulnerability:
 - Affected Parameter: Group Name field
 - Impact: Remote Command Execution
 
-![project d](WEEK-3/Evidence/cve_reference.png)
+![project d](/WEEK-3/Evidence/cve_reference.png)
 
 The CVE documentation confirmed that the observed behavior matched a real-world
 public vulnerability affecting this application version.
@@ -57,7 +57,7 @@ test payload was used.
 
 Payload tested:
 
-![project d](WEEK-3/Evidence/SSTI_identification.png)
+![project d](/WEEK-3/Evidence/SSTI_identification.png)
 
 Expected secure behavior:
 - The application should display the payload as literal text.
@@ -65,7 +65,7 @@ Expected secure behavior:
 Actual behavior:
 - The application evaluated the expression instead of displaying it.
 
-![project d](WEEK-3/Evidence/SSTI_confirmation.png)
+![project d](/WEEK-3/Evidence/SSTI_confirmation.png)
 
 This confirmed that:
 - User input was being evaluated server-side by a template engine.
